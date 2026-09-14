@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Ján Benedek - Senior Software Engineer</title>
+<style>
+    :root{
+        --navy:#1c2e4a;
+        --navy-deep:#152238;
+        --accent:#c9a24b;      /* refined gold */
+        --accent-soft:#e7d9b4;
+        --text:#2b2f36;
+        --muted:#6c7480;
+        --line:#e2e6ec;
+        --sidebar-text:#d9e0ea;
+        --sidebar-muted:#9aa7ba;
+    }
+
+    *{ margin:0; padding:0; box-sizing:border-box; }
+
+    @page{
+        size: A4;
+        margin: 0;
+    }
+
+    html,body{
+        font-family:"Segoe UI","Calibri","Helvetica Neue",Arial,sans-serif;
+        color:var(--text);
+        font-size:10px;
+        line-height:1.4;
+        -webkit-print-color-adjust:exact;
+        print-color-adjust:exact;
+    }
+
+
+    /* The gradient paints the left column and continues across page breaks,
+       so a second page keeps the navy sidebar band. */
+    .page{
+        position:relative;
+        width:210mm;
+        min-height:297mm;
+        display:grid;
+        grid-template-columns:70mm 1fr;
+        background-color:#ffffff;
+        background-image:linear-gradient(160deg,var(--navy) 0%,var(--navy-deep) 100%);
+        background-size:70mm 100%;
+        background-position:left top;
+        background-repeat:no-repeat;
+    }
+
+    /* ---------------- SIDEBAR ---------------- */
+    .sidebar{
+        background:transparent;
+        color:var(--sidebar-text);
+        padding:16px 18px 14px 18px;
+    }
+
+
+    .monogram{
+        width:58px;
+        height:58px;
+        border-radius:50%;
+        border:2px solid var(--accent);
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        font-size:21px;
+        font-weight:700;
+        letter-spacing:1px;
+        color:var(--accent);
+        margin-bottom:10px;
+    }
+
+    .side-block{ margin-top:11px; break-inside:avoid; }
+
+    .side-title{
+        font-size:10.5px;
+        font-weight:700;
+        letter-spacing:2.4px;
+        text-transform:uppercase;
+        color:var(--accent);
+        padding-bottom:4px;
+        margin-bottom:8px;
+        border-bottom:1px solid rgba(201,162,75,0.35);
+    }
+
+    .contact-item{
+        display:flex;
+        align-items:flex-start;
+        gap:9px;
+        margin-bottom:7px;
+        font-size:10px;
+        color:var(--sidebar-text);
+        word-break:break-word;
+    }
+    .contact-item .ico{
+        color:var(--accent);
+        flex:0 0 14px;
+        margin-top:1px;
+    }
+    .contact-item a{ color:var(--sidebar-text); text-decoration:none; }
+
+    .skill-group{ margin-bottom:9px; }
+    .skill-group h4{
+        font-size:9.4px;
+        text-transform:uppercase;
+        letter-spacing:1px;
+        color:#fff;
+        margin-bottom:5px;
+        font-weight:600;
+    }
+    .skill-row{
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        margin-bottom:4px;
+        font-size:9.6px;
+        color:var(--sidebar-text);
+    }
+    .bar{
+        width:74px;
+        height:5px;
+        border-radius:4px;
+        background:rgba(255,255,255,0.14);
+        overflow:hidden;
+    }
+    .bar span{
+        display:block;
+        height:100%;
+        background:linear-gradient(90deg,var(--accent),var(--accent-soft));
+        border-radius:4px;
+    }
+
+    .tag-wrap{ display:flex; flex-wrap:wrap; gap:6px; }
+    .tag{
+        font-size:9px;
+        padding:3px 8px;
+        border:1px solid rgba(201,162,75,0.45);
+        border-radius:20px;
+        color:var(--accent-soft);
+    }
+
+    .lang-item{ margin-bottom:6px; }
+    .lang-item .lang-name{
+        display:flex; justify-content:space-between; align-items:baseline;
+        font-size:9.8px; margin-bottom:3px; color:#fff;
+    }
+    .lang-item .lang-level{ font-size:8.6px; color:var(--sidebar-muted); letter-spacing:0.4px; }
+    .dots{ display:flex; gap:4px; }
+    .dot{ width:7px; height:7px; border-radius:50%; background:rgba(255,255,255,0.2); }
+    .dot.on{ background:var(--accent); }
+
+    .trait-list{ list-style:none; }
+    .trait-list li{
+        font-size:9.6px;
+        color:var(--sidebar-text);
+        padding-left:14px;
+        position:relative;
+        margin-bottom:4px;
+    }
+    .trait-list li::before{
+        content:"";
+        position:absolute;
+        left:0; top:5px;
+        width:5px; height:5px;
+        background:var(--accent);
+        border-radius:50%;
+    }
+
+    /* ---------------- MAIN ---------------- */
+    .main{ padding:14px 30px 10px 28px; }
+
+    .name{
+        font-size:23px;
+        font-weight:700;
+        letter-spacing:0.5px;
+        color:var(--navy);
+        line-height:1.05;
+    }
+    .name .light{ font-weight:300; color:var(--navy); }
+    .role{
+        margin-top:4px;
+        font-size:11.5px;
+        letter-spacing:3px;
+        text-transform:uppercase;
+        color:var(--accent);
+        font-weight:600;
+    }
+    .credential{
+        font-size:9.4px;
+        color:var(--muted);
+        letter-spacing:1px;
+        margin-top:2px;
+    }
+    .rule{ height:2px; background:var(--navy); width:100%; margin:7px 0 4px; }
+    .rule.gold{ background:var(--accent); width:56px; height:2px; margin-top:-3px; }
+
+    .summary{
+        font-size:9.6px;
+        color:#41474f;
+        line-height:1.34;
+        margin:7px 0 2px;
+        text-align:justify;
+    }
+
+    .section{ margin-top:6px; }
+    .section-head{
+        display:flex;
+        align-items:center;
+        gap:8px;
+        margin-bottom:4px;
+        break-inside:avoid;
+    }
+    .section-head .s-ico{
+        width:20px; height:20px;
+        background:var(--navy);
+        color:#fff;
+        border-radius:5px;
+        display:flex; align-items:center; justify-content:center;
+        font-size:10px;
+        flex:0 0 20px;
+    }
+    .section-head h2{
+        font-size:12px;
+        letter-spacing:2px;
+        text-transform:uppercase;
+        color:var(--navy);
+        font-weight:700;
+    }
+
+    .timeline{ position:relative; padding-left:18px; }
+    .timeline::before{
+        content:"";
+        position:absolute;
+        left:4px; top:4px; bottom:4px;
+        width:1.6px;
+        background:var(--line);
+    }
+    .entry{ position:relative; margin-bottom:3px; break-inside:avoid; }
+    .entry::before{
+        content:"";
+        position:absolute;
+        left:-17.4px; top:3px;
+        width:9px; height:9px;
+        background:#fff;
+        border:2px solid var(--accent);
+        border-radius:50%;
+    }
+    .entry .top{
+        display:flex;
+        justify-content:space-between;
+        align-items:baseline;
+        gap:12px;
+    }
+    .entry .title{
+        font-size:11px;
+        font-weight:700;
+        color:var(--navy);
+    }
+    .entry .date{
+        font-size:9.2px;
+        font-weight:600;
+        color:#fff;
+        background:var(--accent);
+        padding:2px 8px;
+        border-radius:12px;
+        white-space:nowrap;
+        letter-spacing:0.3px;
+    }
+    .entry .company{
+        font-size:10px;
+        color:var(--accent);
+        font-weight:600;
+        margin:1px 0 3px;
+    }
+    .entry ul{ list-style:none; margin-top:3px; }
+    .entry ul li{
+        position:relative;
+        padding-left:13px;
+        font-size:9.8px;
+        color:#41474f;
+        margin-bottom:2px;
+        line-height:1.35;
+    }
+    .entry ul li::before{
+        content:"";
+        position:absolute;
+        left:0; top:6px;
+        width:4px; height:4px;
+        border-radius:50%;
+        background:var(--muted);
+    }
+    .entry .desc{
+        font-size:10.1px;
+        color:#41474f;
+        line-height:1.5;
+    }
+
+    .edu-entry{ margin-bottom:4px; break-inside:avoid; }
+    .edu-entry .top{
+        display:flex; justify-content:space-between; align-items:baseline; gap:12px;
+    }
+    .edu-entry .deg{ font-size:11px; font-weight:700; color:var(--navy); }
+    .edu-entry .date{ font-size:9.4px; color:var(--muted); font-weight:600; white-space:nowrap; }
+    .edu-entry .inst{ font-size:10px; color:var(--accent); font-weight:600; margin-top:1px; }
+    .edu-entry .note{ font-size:9.6px; color:var(--muted); margin-top:2px; }
+
+    /* Key projects */
+    .project{ margin-bottom:4px; break-inside:avoid; }
+    .project .p-top{ display:flex; justify-content:space-between; align-items:baseline; gap:12px; }
+    .project .p-name{ font-size:10.6px; font-weight:700; color:var(--navy); }
+    .project .p-tag{ font-size:8.8px; color:var(--accent); font-weight:600; white-space:nowrap; }
+    .project .p-desc{ font-size:9.6px; color:#41474f; line-height:1.3; margin-top:1px; }
+
+    .foot-note{
+        margin-top:7px;
+        font-size:8.6px;
+        color:var(--muted);
+        border-top:1px solid var(--line);
+        padding-top:5px;
+    }
+</style>
+</head>
+<body>
+<div class="page">
+
+    <!-- ========== SIDEBAR ========== -->
+    <aside class="sidebar">
+        <div class="monogram">JB</div>
+
+        <div class="side-block" style="margin-top:6px;">
+            <div class="side-title">Contact</div>
+            <div class="contact-item"><span class="ico">&#9742;</span><span>+421 944 694 642</span></div>
+            <div class="contact-item"><span class="ico">&#9993;</span><span><a href="mailto:jan.benedek91@gmail.com">jan.benedek91@gmail.com</a></span></div>
+            <div class="contact-item"><span class="ico" style="font-family:'Segoe MDL2 Assets';font-size:11px;">&#xE774;</span><span><a href="https://www.reidrecoin.com">www.reidrecoin.com</a></span></div>
+            <div class="contact-item"><span class="ico">&#9873;</span><span>Janka Kráľa 19/44,<br>936 01 Šahy, Slovakia</span></div>
+            <div class="contact-item"><span class="ico">&#9998;</span><span>Driving licence: A2, AM, B</span></div>
+        </div>
+
+        <div class="side-block">
+            <div class="side-title">Technical Skills</div>
+
+            <div class="skill-group">
+                <h4>Languages</h4>
+                <div class="skill-row"><span>C</span><span class="bar"><span style="width:96%"></span></span></div>
+                <div class="skill-row"><span>Assembler</span><span class="bar"><span style="width:88%"></span></span></div>
+                <div class="skill-row"><span>C++</span><span class="bar"><span style="width:82%"></span></span></div>
+                <div class="skill-row"><span>Python</span><span class="bar"><span style="width:60%"></span></span></div>
+                <div class="skill-row"><span>JavaScript</span><span class="bar"><span style="width:60%"></span></span></div>
+            </div>
+
+            <div class="skill-group">
+                <h4>Tooling &amp; Process</h4>
+                <div class="skill-row"><span>Git</span><span class="bar"><span style="width:92%"></span></span></div>
+                <div class="skill-row"><span>Make / Build</span><span class="bar"><span style="width:85%"></span></span></div>
+                <div class="skill-row"><span>Bamboo CI/CD</span><span class="bar"><span style="width:85%"></span></span></div>
+                <div class="skill-row"><span>PowerShell</span><span class="bar"><span style="width:60%"></span></span></div>
+            </div>
+        </div>
+
+        <div class="side-block">
+            <div class="side-title">Toolchain</div>
+            <div class="tag-wrap">
+                <span class="tag">GCC</span>
+                <span class="tag">Lauterbach TRACE32</span>
+                <span class="tag">SEGGER J-Link</span>
+                <span class="tag">Coverity</span>
+            </div>
+        </div>
+
+        <div class="side-block">
+            <div class="side-title">Domains</div>
+            <div class="tag-wrap">
+                <span class="tag">Functional Safety</span>
+                <span class="tag">ISO 26262 (ASIL D)</span>
+                <span class="tag">FMEA</span>
+                <span class="tag">AUTOSAR</span>
+                <span class="tag">Embedded SW</span>
+                <span class="tag">Motor Control</span>
+                <span class="tag">NXP S32N/S32ZE/S32K1</span>
+                <span class="tag">STM32 G0/G4</span>
+            </div>
+        </div>
+
+        <div class="side-block">
+            <div class="side-title">Languages</div>
+            <div class="lang-item">
+                <div class="lang-name"><span>Slovak</span><span class="lang-level">Native</span></div>
+                <div class="dots"><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span></div>
+            </div>
+            <div class="lang-item">
+                <div class="lang-name"><span>English</span><span class="lang-level">Fluent</span></div>
+                <div class="dots"><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span></div>
+                <div style="font-size:9px;color:var(--sidebar-muted);margin-top:2px;">TOEFL 100/120 &middot; fluent written &amp; spoken</div>
+            </div>
+            <div class="lang-item">
+                <div class="lang-name"><span>German</span><span class="lang-level">Basic</span></div>
+                <div class="dots"><span class="dot on"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+            </div>
+        </div>
+
+        <div class="side-block">
+            <div class="side-title">Strengths</div>
+            <ul class="trait-list">
+                <li>Independent &amp; self-driven</li>
+                <li>Calm under pressure</li>
+                <li>Fast, analytical thinking</li>
+                <li>Reliable &amp; responsible</li>
+                <li>Flexible &amp; adaptable</li>
+            </ul>
+        </div>
+
+        <div class="side-block">
+            <div class="side-title">Interests</div>
+            <ul class="trait-list">
+                <li>Woodworking</li>
+                <li>Motorcycling</li>
+                <li>Current affairs &amp; politics</li>
+            </ul>
+        </div>
+    </aside>
+
+    <!-- ========== MAIN ========== -->
+    <main class="main">
+        <div class="name">Ján <span class="light">Benedek</span></div>
+        <div class="role">Senior Software Engineer</div>
+        <div class="credential">Ing., BSc. &middot; Embedded &amp; Safety-Critical Software</div>
+        <div class="rule"></div>
+        <div class="rule gold"></div>
+
+        <p class="summary">
+            Senior Software Engineer with 10+ years of experience delivering safety-critical and embedded software
+            for automotive and industrial platforms. Specialised in C, C++ and Assembler for microcontrollers, with
+            expertise in AUTOSAR-compliant Functional Safety software developed to ISO 26262 (ASIL D), including
+            FMEA. Hands-on across NXP S32 platforms and STM32, spanning the full lifecycle - architecture,
+            implementation, CI/CD, integration and delivery. Physics-trained problem solver with a pragmatic,
+            quality-first mindset.
+        </p>
+
+        <!-- EXPERIENCE -->
+        <div class="section">
+            <div class="section-head">
+                <span class="s-ico">&#9632;</span>
+                <h2>Professional Experience</h2>
+            </div>
+
+            <div class="timeline">
+
+                <div class="entry">
+                    <div class="top">
+                        <span class="title">CEO &amp; Safety Software Developer</span>
+                        <span class="date">May 2025 - Present</span>
+                    </div>
+                    <div class="company"><a href="https://www.reidrecoin.com" style="color:inherit;text-decoration:none;">Reid Recoin s.r.o.</a> - Contract with NXP Semiconductors</div>
+                    <ul>
+                        <li>Founded and lead an engineering consultancy delivering safety software to any company requiring my services.</li>
+                        <li>Develop AUTOSAR-compliant safety software and documentation for multiple NXP platforms to ISO 26262 (ASIL D), including FMEA.</li>
+                        <li>Software development on the NXP S32N platform (2 years to date).</li>
+                        <li>Re-architected the Bamboo CI/CD pipeline with parallel builds, cutting validation time by at least 50%; every pull request now must pass compilation, Coverity static analysis and hardware-in-the-loop validation - checks previously run only near release.</li>
+                    </ul>
+                </div>
+
+                <div class="entry">
+                    <div class="top">
+                        <span class="title">Safety Software Developer (Self-Employed)</span>
+                        <span class="date">Jul 2022 - Apr 2025</span>
+                    </div>
+                    <div class="company">NXP Semiconductors - Contractor</div>
+                    <ul>
+                        <li>Designed and implemented AUTOSAR-compliant safety software for a range of NXP platforms to ISO 26262 (ASIL D), producing FMEA and supporting safety documentation.</li>
+                        <li>Implemented a safety library for the S32ZE platform, including its multicore communication.</li>
+                        <li>Implemented software fault processing for the S32K1 platform.</li>
+                        <li>Built a VS Code extension (JavaScript) that automates NXP plugin generation.</li>
+                    </ul>
+                </div>
+
+                <div class="entry">
+                    <div class="top">
+                        <span class="title">Embedded Software Developer (C/C++)</span>
+                        <span class="date">Jul 2017 - Jul 2022</span>
+                    </div>
+                    <div class="company">BSH Drives and Pumps s.r.o.</div>
+                    <ul>
+                        <li>Implemented Functional Safety for a new platform (NXP and STM32 G0).</li>
+                        <li>Developed a reusable Timer library and optimised C++ for constrained embedded targets (STM32 G4).</li>
+                        <li>Created the project framework and build (make) process for the Motor Control project.</li>
+                        <li>Acted as integrator - Git revisioning, release deliveries and smoke testing.</li>
+                    </ul>
+                </div>
+
+                <div class="entry">
+                    <div class="top">
+                        <span class="title">Volunteer</span>
+                        <span class="date">Aug 2016 - Jul 2017</span>
+                    </div>
+                    <div class="company">Luník IX Community, Košice</div>
+                    <ul>
+                        <li>Volunteered for a year supporting a marginalised community in Košice.</li>
+                    </ul>
+                </div>
+
+                <div class="entry">
+                    <div class="top">
+                        <span class="title">Embedded Software Developer (C/C++)</span>
+                        <span class="date">Jan 2016 - Aug 2016</span>
+                    </div>
+                    <div class="company">BSH Drives and Pumps s.r.o.</div>
+                    <ul>
+                        <li>Developed EEPROM handling firmware for embedded devices.</li>
+                    </ul>
+                </div>
+
+                <div class="entry">
+                    <div class="top">
+                        <span class="title">NOC Operator (Part-time, Student)</span>
+                        <span class="date">Jan 2014 - Dec 2015</span>
+                    </div>
+                    <div class="company">Astrium Services BC s.r.o.</div>
+                    <ul>
+                        <li>Provided front-line hotline support to ship captains, correcting satellite antenna misalignments to maintain maritime communication links.</li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- KEY PROJECTS -->
+        <div class="section">
+            <div class="section-head">
+                <span class="s-ico">&#9670;</span>
+                <h2>Key Projects</h2>
+            </div>
+
+            <div class="project">
+                <div class="p-top">
+                    <span class="p-name">Electronic Differential for an EV Go-Kart</span>
+                    <span class="p-tag">MSc Thesis</span>
+                </div>
+                <div class="p-desc">Developed an electronic differential for a dual-motor electric kart, computing and sending per-motor speed commands to the controllers to achieve correct cornering behaviour.</div>
+            </div>
+
+            <div class="project">
+                <div class="p-top">
+                    <span class="p-name">High-Precision Double Pendulum</span>
+                    <span class="p-tag">BSc Project</span>
+                </div>
+                <div class="p-desc">Designed the measurement hardware and wrote the firmware in Assembler (for speed) to measure the oscillation period with high accuracy.</div>
+            </div>
+
+            <div class="project">
+                <div class="p-top">
+                    <span class="p-name">Line-Tracking Miniature RC Car</span>
+                    <span class="p-tag">Embedded / Assembler</span>
+                </div>
+                <div class="p-desc">Built a line-tracking miniature RC car with real-time control firmware written entirely in Assembler.</div>
+            </div>
+        </div>
+
+        <!-- EDUCATION -->
+        <div class="section">
+            <div class="section-head">
+                <span class="s-ico">&#9650;</span>
+                <h2>Education</h2>
+            </div>
+
+            <div class="edu-entry">
+                <div class="top">
+                    <span class="deg">MSc in Applied Mechatronics (Ing.) - magna cum laude</span>
+                    <span class="date">2013 - 2015</span>
+                </div>
+                <div class="inst">Faculty of Electrical Engineering &amp; IT (FEI), STU Bratislava</div>
+            </div>
+
+            <div class="edu-entry">
+                <div class="top">
+                    <span class="deg">BSc in Physics</span>
+                    <span class="date">2010 - 2013</span>
+                </div>
+                <div class="inst">Imperial College London, United Kingdom</div>
+            </div>
+
+            <div class="edu-entry">
+                <div class="top">
+                    <span class="deg">A-Levels (A2)</span>
+                    <span class="date">2008 - 2010</span>
+                </div>
+                <div class="inst">Fyling Hall School, United Kingdom</div>
+                <div class="note">Mathematics (A*), Further Mathematics (A*), Physics (A), Chemistry (B), Biology (C)</div>
+            </div>
+        </div>
+
+        <div class="foot-note">
+            References and detailed project portfolio available on request.
+        </div>
+
+    </main>
+</div>
+</body>
+</html>
